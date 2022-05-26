@@ -1,16 +1,17 @@
+# 경기 데이터 받아옴
+
 import http.client
 import json
 import pandas as pd
-
 import cx_Oracle
-db=cx_Oracle.connect('c##oracle_test','1234', 'localhost/xe')
 
+
+db=cx_Oracle.connect('c##oracle_test','1234', 'localhost/xe')
 cursor = db.cursor()
 connection = http.client.HTTPConnection('api.football-data.org')
 headers = { 'X-Auth-Token' : 'a5138360d35743f1961282ccb58f088f' }
 connection.request('GET', '/v2/matches', None, headers )
 response = json.loads(connection.getresponse().read().decode())
-
 key_matches = response.get('matches')
 
 # ===========================|데이터 가공|=================================
